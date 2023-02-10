@@ -94,8 +94,10 @@ def addToQueue(data, prefix: str, queue, fileFormat: str, timeframe: str):
     return count
 
 def main():
+    WORKER_COUNT = 80
+    
     queue = multiprocessing.JoinableQueue()
-    workers = [multiprocessing.Process(target=download_url, args=(queue,)) for _ in range(80)]
+    workers = [multiprocessing.Process(target=download_url, args=(queue,)) for _ in range(WORKER_COUNT)]
     for worker in workers:
         worker.start()
 
